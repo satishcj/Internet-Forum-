@@ -3,7 +3,7 @@ class dbconfig {
   protected static $host = "localhost";
   protected static $username = "root";
   protected static $password = "";
-  protected static $dbname = "tt";
+  protected static $dbname = "internat forum";
  
   static $con;
  
