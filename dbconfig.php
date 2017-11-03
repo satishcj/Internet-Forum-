@@ -1,42 +1,34 @@
 <?php
 class dbconfig {
-  protected static $host = "localhost";
-  protected static $username = "root";
-  protected static $password = "";
-  protected static $dbname = "tt";
+	
+	function __constructor(){
+		
+  $host = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "tt";
  
-  static $con;
+  //static $conn;
  
-  function __construct() {
-    self::$con = self::connect(); 
-  }
- 
-  // open connection
-  protected static function connect() {
-     try {
-       $link = mysqli_connect(self::$host, self::$username, self::$password, self::$dbname); 
-        if(!$link) {
-          throw new exception(mysqli_error($link));
-        }
-        return $link;
-     } catch (Exception $e) {
-       echo "Error: ".$e->getMessage();
-     } 
-  }
- 
- // close connection
-  public static function close() {
-     mysqli_close(self::$con);
-  }
- 
+  // $db = new db_Connect();
+   $conn = mysqli_connect("localhost", "root", "", "tt");
+   mysqli_select_db($conn,"tt");
+   if(!$conn) //testing the connection
+   {
+      die("Cannot connect to the database");
+	}
+	return $conn;
+}
+
 // run query
-  public static function run($query) {
+  public  function run($query) {
     try {
       if(empty($query) && !isset($query)) {
         throw new exception("Query string is not set.");
       }
-      $result = mysqli_query(self::$con, $query);
-      //self::close();
+	  $conn = mysqli_connect("localhost", "root", "", "tt");
+   mysqli_select_db($conn,"tt");
+      $result = mysqli_query($conn, $query);
      return $result;
     } catch (Exception $e) {
       echo "Error: ".$e->getMessage();
